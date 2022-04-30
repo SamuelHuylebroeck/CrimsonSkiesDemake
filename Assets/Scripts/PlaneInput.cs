@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlaneInput : MonoBehaviour
 {
 
     [Tooltip("Input for left-right movement")]
@@ -14,7 +14,10 @@ public class PlayerInput : MonoBehaviour
     [Tooltip("Input for rotational roll movement")]
     public float RollInput;
 
-    public bool PrimaryFire; 
+    public bool PrimaryFire;
+
+    public float BoostBrake;
+
     
     // Start is called before the first frame update
     void Start()
@@ -25,9 +28,6 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        YawInput = Input.GetAxis("Yaw");
-        PitchInput = Input.GetAxis("Vertical");
-        RollInput = -1*Input.GetAxis("Horizontal");
-        PrimaryFire = Input.GetAxis("Fire1") >0 ;
+
     }
 }

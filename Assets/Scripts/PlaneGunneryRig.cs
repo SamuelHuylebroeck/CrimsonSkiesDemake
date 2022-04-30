@@ -9,7 +9,7 @@ public class PlaneGunneryRig : MonoBehaviour
     public GameObject[] FiringPoints;
     public float ConvergenceDistance;
 
-    public PlayerInput PlaneInput;
+    public PlaneInput PlaneInput;
 
     private int _currentFiringPointIndex;
     private bool _canFire;
