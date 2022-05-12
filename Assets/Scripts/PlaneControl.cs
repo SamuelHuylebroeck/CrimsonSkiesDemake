@@ -15,6 +15,12 @@ public class PlaneControl : MonoBehaviour
 
     public float BrakeMultiplier = 0.667f;
 
+    public bool IsBoosting {
+        get {
+            return PStatus.CanBoost && PInput.BoostBrake > 0f;
+        }
+    }
+
     [Tooltip("Maximum change in pitch, degrees per second")]
     public float MaxPitchSpeed = 60f;
     [Tooltip("Maximum change in yaw, degrees per second")]
@@ -72,9 +78,7 @@ public class PlaneControl : MonoBehaviour
             PlaneModel.transform.Rotate(new Vector3(0, 0, -1*yaw*MaxRollSpeed * Time.deltaTime), Space.Self);
             //Clamp to max values
             Vector3 lEV = PlaneModel.transform.localRotation.eulerAngles;
-            print(lEV);
             lEV = new Vector3(lEV.x, lEV.y, Mathf.Clamp(lEV.z < 180 ? lEV.z : lEV.z-360, -1 * maxYawRoll, maxYawRoll));
-            print(lEV);
             PlaneModel.transform.localEulerAngles = lEV;
         }
         else {

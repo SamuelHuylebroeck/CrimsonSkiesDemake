@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CameraControl : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     public Transform CameraY;
     public Transform Camera;
@@ -16,6 +18,8 @@ public class CameraControl : MonoBehaviour
     public float[] CameraZPositions =  new float[] { -7,-10, -15};
 
     private float _targetCameraZDistance;
+
+    private float _cameraAdditonalRotation;
 
     public float CameraZ {
         get
@@ -33,6 +37,7 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         _targetCameraZDistance = CameraZPositions[1];
+        _cameraAdditonalRotation = 0;
     }
 
     // Update is called once per frame
@@ -45,14 +50,33 @@ public class CameraControl : MonoBehaviour
         else {
             if (input.BoostBrake > 0f)
             {
-                CameraZ = CameraZPositions[2];
+                if (plane.IsBoosting) {
+
+                    CameraZ = CameraZPositions[2];
+                } else
+                {
+                    CameraZ = CameraZPositions[1];
+                }
 
             }
             else
             {
                 CameraZ = CameraZPositions[0];
             }
-        
+
+        }
+
+
+        _cameraAdditonalRotation = 0;
+        if (Input.GetButton("CameraLookBack"))
+        {
+            _cameraAdditonalRotation = 180;
+        }else{ 
+            float additionalRotInput = Input.GetAxis("CameraSwivel");
+            if (additionalRotInput != 0.0)
+            {
+                _cameraAdditonalRotation = additionalRotInput > 0.0 ? 90 : -90;
+            }
         }
     }
 
@@ -76,7 +100,10 @@ public class CameraControl : MonoBehaviour
         #endregion
 
         #region sync rotation
-        GradualSyncRotation(plane.transform.rotation, SpeedRotation);
+        Quaternion targetRotation = plane.transform.rotation;
+        targetRotation *= Quaternion.AngleAxis(_cameraAdditonalRotation, Vector3.up);
+
+        GradualSyncRotation(targetRotation, SpeedRotation);
         #endregion
 
         #region update camera Z-pos

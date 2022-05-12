@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 
     public float BulletMaxVelocity;
     public float BulletLifeTime = 5f;
+    public GameObject BulletImpactTemplate;
 
     private Rigidbody _rb;
     // Start is called before the first frame update
@@ -29,5 +30,21 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        print("Hit");
+        if(BulletImpactTemplate != null)
+        {
+            Instantiate(BulletImpactTemplate, transform.position, transform.rotation);
+        }
+        Destroy(gameObject);
+
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        print("Collision from projectile");
     }
 }
