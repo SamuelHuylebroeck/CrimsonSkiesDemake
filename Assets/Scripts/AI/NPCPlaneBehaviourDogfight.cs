@@ -22,14 +22,38 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
     public float BulletSpeed = 50;
     #endregion
 
+    #region boost and brake
+    public bool CanBoostBrake = false;
+    public float BoostDistance;
+    public float BrakeDistance;
+    #endregion
+
+    public bool Intercept = false;
+
+    #region Dogfighting Endurance setup
+    public bool UseEndurance = true;
+    public float MaxEndurance = 10;
+    [SerializeField]
+    private float _currentEndurance;
+    [SerializeField]
+    private bool _onEnduranceCooldown;
+
+    public float DogfightEnduranceDistance;
+    #endregion
+
 
 
     void Start()
     {
         _lastInput = Vector3.zero;
+        _currentEndurance = MaxEndurance;
+        _onEnduranceCooldown = false;
     }
     public override float CalculateBoostBreak(float dt, PlaneBehaviourContext context)
     {
+        if (!CanBoostBrake) return 0.0f;
+        if (Vector3.Distance(transform.position, context.TargetPosition) > BoostDistance) return 1.0f;
+        if (Vector3.Distance(transform.position, context.TargetPosition) < BrakeDistance) return -1.0f;
         return 0.0f;
     }
 
@@ -43,7 +67,7 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
 
             #region Calculate intercept position
             Vector3 interceptPos = context.TargetPosition;
-            if (context.TargetVelocity.magnitude != 0.0f)
+            if (Intercept && context.TargetVelocity.magnitude != 0.0f)
             {
                 interceptPos = MathUtilities.FirstOrderIntercept(context.planeControl.transform.position,context.planeControl.transform.forward * context.planeControl.MaxForwardSpeed, BulletSpeed, context.TargetPosition, context.TargetVelocity);
             }
@@ -56,8 +80,6 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
                 fire = true;
             }
         }
-
-
         return fire;
     }
 
@@ -68,13 +90,13 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
 
         #region Calculate intercept position
         Vector3 interceptPos = context.TargetPosition;
-        if(context.TargetVelocity.magnitude != 0.0f)
+        if(Intercept && context.TargetVelocity.magnitude != 0.0f)
         {
             interceptPos = MathUtilities.FirstOrderIntercept(planeControl.transform.position, planeControl.transform.forward * planeControl.MaxForwardSpeed, BulletSpeed, context.TargetPosition, context.TargetVelocity);
-            //print((interceptPos - context.TargetPosition).magnitude + ":" + context.TargetPosition + "," + interceptPos);
-            Debug.DrawLine(planeControl.transform.position, interceptPos,Color.blue);
-            Debug.DrawLine(context.TargetPosition, interceptPos, Color.green);
+
         }
+        Debug.DrawLine(planeControl.transform.position, interceptPos, Color.blue);
+        Debug.DrawLine(context.TargetPosition, interceptPos, Color.green);
         #endregion
 
         Vector3 targetPosLocal = transform.InverseTransformPoint(interceptPos);
@@ -84,6 +106,7 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
         #region pitch
         Vector3 pitchError = new Vector3(0, targetPosLocal.y, targetPosLocal.z).normalized;
         float pitch = Vector3.SignedAngle(Vector3.forward, pitchError, Vector3.right);
+
 
         if (-pitch < PitchUpThreshold) pitch += 360f;
         steering.x = pitch;
@@ -96,9 +119,14 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
             steering.y = targetPosLocal.x;
             yawing = true;
             //When yawing, roll to be level
-            var roll = planeControl.transform.localEulerAngles.z;
-            if (roll > 180f) roll -= 360f;
-            steering.z = -roll;
+            if(pitch < 5f)
+            {
+
+                float roll = planeControl.transform.localEulerAngles.z;
+                if (roll > 180f) roll -= 360f;
+                steering.z = -roll*RollFactor;
+            }
+
         }
         else
         {
@@ -120,6 +148,14 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
         _lastInput = steering;
         #endregion
 
+        #region Endurance Update
+        if(Vector3.Distance(transform.position, context.TargetPosition) < DogfightEnduranceDistance)
+        {
+            _currentEndurance -= Time.deltaTime * 2;
+        }
+
+        #endregion
+
         //print(string.Format("Steering: {0}, Rolling: {1}, Yawing: {2}", steering, rolling, yawing));
         return steering;
     }
@@ -131,6 +167,20 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
 
     public override bool ShouldExecuteBehaviour(float dt, PlaneBehaviourContext context)
     {
-        return true;
+        bool EnduranceCheck = !UseEndurance || (_currentEndurance > 0 && !_onEnduranceCooldown);
+
+        if (!_onEnduranceCooldown && _currentEndurance <= 0)
+        {
+            _onEnduranceCooldown = true;
+        }
+        _currentEndurance = Mathf.Min(_currentEndurance + Time.deltaTime, MaxEndurance);
+
+        if (_onEnduranceCooldown && _currentEndurance >= MaxEndurance)
+        {
+            _onEnduranceCooldown = false;
+        }
+
+        //Dirty but quick fix on the position check
+        return context.TargetPosition != Vector3.zero && EnduranceCheck;
     }
 }

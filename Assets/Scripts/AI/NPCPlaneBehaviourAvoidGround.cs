@@ -50,7 +50,7 @@ public class NPCPlaneBehaviourAvoidGround : AbstractNPCPlaneBehaviour
         bool projectedCollisionDown = Physics.Raycast(rayDown, GroundDetectionRange, GroundCollisionMask);
         Color colColor = projectedCollisionDown ? Color.green : Color.red;
 
-        Debug.DrawRay(rayDown.origin, rayDown.direction.normalized * GroundDetectionRange, colColor);
+        
         return projectedCollisionDown;
     }
 

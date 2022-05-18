@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8751956420143688630
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 777222317060102310, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.11269832
+      objectReference: {fileID: 0}
+    - target: {fileID: 777222317060102310, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 777222317060102310, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661564586363978581, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.043064833
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661564586363978581, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661564586363978581, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28.25373
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -548.8976
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061964727878810098, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458035576146223894, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: ReloadFraction
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458035576146223894, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: RepairFraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099218117805534579, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ed9e1e151f9001d4298e2b3c45e3c338, type: 2}
+    - target: {fileID: 7202315027485298723, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+      propertyPath: m_Name
+      value: AmmoCrateFloating
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}

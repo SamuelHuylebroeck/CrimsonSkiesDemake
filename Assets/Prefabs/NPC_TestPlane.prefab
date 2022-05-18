@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 7579885150391554538}
   - component: {fileID: 8409038530643976315}
   - component: {fileID: 3071497189314558308}
-  m_Layer: 0
+  - component: {fileID: 431560635473438298}
+  m_Layer: 7
   m_Name: PlaneModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,12 +114,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c53c605ea0b55438bc91d1db3073b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletTemplate: {fileID: 8723710245464152715, guid: 83eb943fe5edc834e86ff35c0ed28a5f, type: 3}
-  ShotCooldown: 0.15
-  FiringPoints:
+  BulletTemplatePrimary: {fileID: 8723710245464152715, guid: 83eb943fe5edc834e86ff35c0ed28a5f, type: 3}
+  ShotCooldownPrimary: 0.2
+  FiringPointsPrimary:
   - {fileID: 4206029260650518442}
-  ConvergenceDistance: 1000
-  PlaneInput: {fileID: 518199690185974461}
+  BulletTemplateSecondary: {fileID: 0}
+  ShotCooldownSecondary: 0
+  FiringPointsSecondary: []
+  SecondaryAmmoCost: 0
+  MaxConvergenceDistance: 200
+  MinConvergenceDistance: 10
+  ConvergenceMask:
+    serializedVersion: 2
+    m_Bits: 152
+  PlaneInput: {fileID: 7163880319445162589}
+--- !u!54 &431560635473438298
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334403437706289503}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2563203793080396854
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,8 +155,7 @@ GameObject:
   - component: {fileID: 6798701269928800866}
   - component: {fileID: 115721748122378312}
   - component: {fileID: 711667860011393049}
-  - component: {fileID: 3624144951794104256}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,19 +225,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3624144951794104256
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2563203793080396854}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3247240534043927181
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,13 +237,14 @@ GameObject:
   - component: {fileID: 981671936658384757}
   - component: {fileID: 7304250870577274565}
   - component: {fileID: 3214510288928062007}
-  - component: {fileID: 518199690185974461}
   - component: {fileID: 4525470774384167856}
-  - component: {fileID: 7088776925829083193}
   - component: {fileID: 9169947633255038953}
-  m_Layer: 0
+  - component: {fileID: 7163880319445162589}
+  - component: {fileID: 4249630008484641998}
+  - component: {fileID: 2844920341194622397}
+  m_Layer: 7
   m_Name: NPC_TestPlane
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e27725de129664096e8f92b3d82bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PInput: {fileID: 518199690185974461}
+  PInput: {fileID: 7163880319445162589}
   CController: {fileID: 981671936658384757}
   PStatus: {fileID: 3214510288928062007}
   MaxForwardSpeed: 25
@@ -313,31 +325,13 @@ MonoBehaviour:
   MaxBoostGauge: 1
   BoostRecover: 0.2
   BoostDrain: 0.33
-  input: {fileID: 518199690185974461}
+  MaxHealth: 100
+  CurrentHealth: 100
+  DamageThresholdExplosionTemplate: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
+  DeathExplosion: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
+  input: {fileID: 7163880319445162589}
+  IsPlayer: 0
   _currentBoostGauge: 0
---- !u!114 &518199690185974461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3247240534043927181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7c829eb27f4dea4fab0e9cd1261b485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  YawInput: 0
-  PitchInput: 0
-  RollInput: 0
-  PrimaryFire: 0
-  BoostBrake: 0
-  target: {fileID: 0}
-  planeControl: {fileID: 7304250870577274565}
-  BehaviourStack:
-  - {fileID: 9169947633255038953}
-  - {fileID: 4525470774384167856}
-  - {fileID: 7088776925829083193}
 --- !u!114 &4525470774384167856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,18 +352,15 @@ MonoBehaviour:
   MinFiringRange: 10
   FireAngle: 10
   BulletSpeed: 50
---- !u!114 &7088776925829083193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3247240534043927181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4b285171f75fbc49a781974dabdac92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  CanBoostBrake: 0
+  BoostDistance: 0
+  BrakeDistance: 0
+  Intercept: 1
+  UseEndurance: 1
+  MaxEndurance: 20
+  _currentEndurance: 0
+  _onEnduranceCooldown: 0
+  DogfightEnduranceDistance: 50
 --- !u!114 &9169947633255038953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +378,67 @@ MonoBehaviour:
   GroundDetectionRange: 25
   GroundCollisionMask:
     serializedVersion: 2
-    m_Bits: 152
+    m_Bits: 24
+--- !u!114 &7163880319445162589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247240534043927181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce3f7a8d70062c4bb8a67de311898f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  YawInput: 0
+  PitchInput: 0
+  RollInput: 0
+  PrimaryFire: 0
+  SecondayFire: 0
+  BoostBrake: 0
+  target: {fileID: 0}
+  planeControl: {fileID: 7304250870577274565}
+  BehaviourStack:
+  - {fileID: 9169947633255038953}
+  - {fileID: 2844920341194622397}
+  - {fileID: 4525470774384167856}
+  - {fileID: 4249630008484641998}
+--- !u!114 &4249630008484641998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247240534043927181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a111c02e12aa3424f898f27a696b1b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SteeringSpeed: 5
+  ClimbAngle: 15
+  StartPitchRollAngle: 5
+  PitchUpThreshold: 15
+--- !u!114 &2844920341194622397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247240534043927181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c60c43af351af442bea55f012d28669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PitchUpThreshold: -15
+  FineSteeringAngle: 5
+  RollFactor: 1
+  SteeringSpeed: 5
+  PatrolPoints: []
+  GoalDistance: 10
+  AggroRange: 200
 --- !u!1 &6821023096790974357
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,8 +450,7 @@ GameObject:
   - component: {fileID: 2670352728095613231}
   - component: {fileID: 6971062332421595796}
   - component: {fileID: 2105775188266583793}
-  - component: {fileID: 7555647810299485931}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,19 +520,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7555647810299485931
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6821023096790974357}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7428101969961843850
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,8 +530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4669300434297671859}
   - component: {fileID: 5721108464266920092}
-  - component: {fileID: 285328653733760611}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,8 +544,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7428101969961843850}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.42, z: -1.234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 0.1350822}
   m_Children: []
   m_Father: {fileID: 5567444348730492584}
@@ -558,14 +594,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &285328653733760611
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428101969961843850}
-  m_Enabled: 0
 --- !u!1 &8068343283375995881
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,8 +605,7 @@ GameObject:
   - component: {fileID: 17073807129677415}
   - component: {fileID: 3144997114935158552}
   - component: {fileID: 7659266834632874755}
-  - component: {fileID: 552949913386250382}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,19 +675,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &552949913386250382
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8068343283375995881}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5615167334257341878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -671,6 +685,10 @@ PrefabInstance:
     - target: {fileID: 8634069715431907086, guid: 521f82732147e4649843019a27b0d46d, type: 3}
       propertyPath: m_Name
       value: PrimaryFiringPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 8634069715431907086, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
       propertyPath: m_RootOrder

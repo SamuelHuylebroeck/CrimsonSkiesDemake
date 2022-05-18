@@ -16,6 +16,8 @@ public class PlaneInput : MonoBehaviour
 
     public bool PrimaryFire;
 
+    public bool SecondayFire;
+
     public float BoostBrake;
 
     

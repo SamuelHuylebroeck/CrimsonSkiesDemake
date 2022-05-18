@@ -5,9 +5,11 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    public float BulletMaxVelocity;
-    public float BulletLifeTime = 5f;
+    public float ProjectileMaxVelocity;
+    public float ProjectileLifeTime = 5f;
     public GameObject BulletImpactTemplate;
+
+    public float ProjectileDamage = 10;
 
     private Rigidbody _rb;
     // Start is called before the first frame update
@@ -23,28 +25,33 @@ public class Projectile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var translocation = BulletMaxVelocity * Time.deltaTime * Vector3.forward;
+        var translocation = ProjectileMaxVelocity * Time.deltaTime * Vector3.forward;
         transform.Translate(translocation, Space.Self);
-        BulletLifeTime -= Time.deltaTime;
-        if (BulletLifeTime <= 0)
+        ProjectileLifeTime -= Time.deltaTime;
+        if (ProjectileLifeTime <= 0)
         {
             Destroy(gameObject);
         }
     }
 
     public void OnTriggerEnter(Collider other)
-    {
-        print("Hit");
+    { 
         if(BulletImpactTemplate != null)
         {
             Instantiate(BulletImpactTemplate, transform.position, transform.rotation);
         }
+        float dam = ProjectileDamage;
+        if (dam != 0.0f)
+        {
+            //Get the planestatus
+            PlaneStatus ps = other.gameObject.GetComponentInChildren<PlaneStatus>();
+            if (ps != null)
+            {
+                ps.Damage(dam);
+            }
+        }
         Destroy(gameObject);
 
-    }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        print("Collision from projectile");
     }
 }

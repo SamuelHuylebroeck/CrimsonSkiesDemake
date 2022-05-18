@@ -4,58 +4,136 @@ using UnityEngine;
 
 public class PlaneGunneryRig : MonoBehaviour
 {
-    public GameObject BulletTemplate;
-    public float ShotCooldown;
-    public FiringPoint[] FiringPoints;
-    public float ConvergenceDistance;
+    public GameObject BulletTemplatePrimary;
+    public float ShotCooldownPrimary;
+    public FiringPoint[] FiringPointsPrimary;
+
+    public GameObject BulletTemplateSecondary;
+    public float ShotCooldownSecondary;
+    public FiringPoint[] FiringPointsSecondary;
+    
+    [Tooltip("Cost to fire a single shot of seconday weapon, expressed as a fraction")]
+    public float SecondaryAmmoCost;
+
+    public float MaxConvergenceDistance;
+    public float MinConvergenceDistance;
+    public LayerMask ConvergenceMask;
 
     public PlaneInput PlaneInput;
 
-    private int _currentFiringPointIndex;
-    private bool _canFire;
-    private float _currentCooldown;
-    
+    private int _currentFiringPointIndexPrimary;
+    private bool _canFirePrimary;
+    private float _currentCooldownPrimary;
+
+    private int _currentFiringPointIndexSecondary;
+    private bool _canFireSecondary;
+    private float _currentCooldownSecondary;
+
+    private float _secondaryAmmo;
+
+    public int CurrentSecondaryAmmo
+    {
+        get {
+           return Mathf.FloorToInt(1 / SecondaryAmmoCost * _secondaryAmmo);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _currentFiringPointIndex = 0;
-        _canFire = true;
+        _currentFiringPointIndexPrimary = 0;
+        _canFirePrimary = true;
+
+        _currentFiringPointIndexSecondary = 0;
+        _canFireSecondary = true;
+
+        _secondaryAmmo = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_canFire)
+        if (!_canFirePrimary)
         {
-            _currentCooldown -= Time.deltaTime;
-            if (_currentCooldown < 0)
+            _currentCooldownPrimary -= Time.deltaTime;
+            if (_currentCooldownPrimary < 0)
             {
-                _canFire = true;
+                _canFirePrimary = true;
             }
         }
-        if (PlaneInput.PrimaryFire && _canFire)
+
+        if (!_canFireSecondary && _secondaryAmmo > SecondaryAmmoCost)
+        {
+            _currentCooldownSecondary -= Time.deltaTime;
+            if (_currentCooldownSecondary < 0)
+            {
+                _canFireSecondary = true;
+            }
+        }
+
+
+        if (PlaneInput.PrimaryFire && _canFirePrimary)
         {
             FireBullet();
         }
-    }
-    void FireBullet() {
-        //Get the current firing point
-        _canFire = false;
-        _currentCooldown = ShotCooldown;
 
-        Transform currentFiringPointTf = FiringPoints[_currentFiringPointIndex].transform;
-        Vector3 convergencePoint = new Vector3(0, 0, ConvergenceDistance);
-        convergencePoint = currentFiringPointTf.TransformPoint(convergencePoint);
+        if (PlaneInput.SecondayFire && _canFireSecondary)
+        {
+            FireSecondary();
+        }
+    }
+
+    void FireBullet() {
+        _canFirePrimary = false;
+        _currentCooldownPrimary += ShotCooldownPrimary;
+
+        Transform currentFiringPointTf = FiringPointsPrimary[_currentFiringPointIndexPrimary].transform;
+        Vector3 convergencePoint = calculateConvergencePoint(MinConvergenceDistance, MaxConvergenceDistance, ConvergenceMask);
         
         currentFiringPointTf.LookAt(convergencePoint);
         Vector3 firingPos = currentFiringPointTf.transform.position;
 
-        //var debugString = "World position: {0} - Rotation {1} - Index {2}";
-        //print(string.Format(debugString, firingPos, currentFiringPoint.rotation, _currentFiringPointIndex));
+        GameObject bullet = Instantiate(BulletTemplatePrimary, firingPos, currentFiringPointTf.rotation);
+        FiringPointsPrimary[_currentFiringPointIndexPrimary].Fire();
 
-        GameObject bullet = Instantiate(BulletTemplate, firingPos, currentFiringPointTf.rotation);
-        FiringPoints[_currentFiringPointIndex].Fire();
+        _currentFiringPointIndexPrimary = (_currentFiringPointIndexPrimary + 1) % FiringPointsPrimary.Length;
+    }
 
-        _currentFiringPointIndex = (_currentFiringPointIndex + 1) % FiringPoints.Length;
+    void FireSecondary() {
+        _canFireSecondary = false;
+        _currentCooldownSecondary += ShotCooldownSecondary;
+        _secondaryAmmo -= SecondaryAmmoCost;
+
+        Transform currentFiringPointTf = FiringPointsSecondary[_currentFiringPointIndexSecondary].transform;
+        Vector3 convergencePoint = calculateConvergencePoint(MinConvergenceDistance, MaxConvergenceDistance, ConvergenceMask);
+
+        currentFiringPointTf.LookAt(convergencePoint);
+        Vector3 firingPos = currentFiringPointTf.transform.position;
+
+        GameObject bullet = Instantiate(BulletTemplateSecondary, firingPos, currentFiringPointTf.rotation);
+        FiringPointsSecondary[_currentFiringPointIndexSecondary].Fire();
+
+        _currentFiringPointIndexSecondary = (_currentFiringPointIndexSecondary + 1) % FiringPointsSecondary.Length;
+
+    }
+
+    Vector3 calculateConvergencePoint(float minDistance, float maxDistance, LayerMask rayMask)
+    {
+        Ray planeForward = new Ray(transform.position, transform.forward);
+        RaycastHit hitInfo = new RaycastHit();
+        bool hit = Physics.Raycast(planeForward, out hitInfo, maxDistance, rayMask.value);
+        if (!hit)
+        {
+            return transform.position + transform.forward.normalized * maxDistance;
+        }
+        else {
+            return transform.position + transform.forward.normalized * Mathf.Clamp(hitInfo.distance, minDistance, maxDistance);
+        }
+        
+
+    }
+    public void Reload(float ReloadFraction) 
+    {
+        _secondaryAmmo = Mathf.Clamp(_secondaryAmmo + ReloadFraction, 0, 1);
     }
 }

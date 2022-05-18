@@ -95,26 +95,27 @@ public class CameraControl : MonoBehaviour
 
     private void LateUpdate()
     {
-        #region sync position
-        transform.position = plane.transform.position;
-        #endregion
+        if (plane != null)
+        {
+            #region sync position
+            transform.position = plane.transform.position;
+            #endregion
 
-        #region sync rotation
-        Quaternion targetRotation = plane.transform.rotation;
-        targetRotation *= Quaternion.AngleAxis(_cameraAdditonalRotation, Vector3.up);
+            #region sync rotation
+            Quaternion targetRotation = plane.transform.rotation;
+            targetRotation *= Quaternion.AngleAxis(_cameraAdditonalRotation, Vector3.up);
 
-        GradualSyncRotation(targetRotation, SpeedRotation);
-        #endregion
+            GradualSyncRotation(targetRotation, SpeedRotation);
+            #endregion
 
-        #region update camera Z-pos
-        
-        Vector3 targetPos = new Vector3(Camera.localPosition.x, Camera.localPosition.y, _targetCameraZDistance);
-        float distance = Vector3.Distance(Camera.localPosition, targetPos);
-        float timeToReach = distance / CameraZAdjustSpeed;
-        float t = Time.deltaTime / timeToReach;
-        Camera.transform.localPosition = Vector3.Lerp(Camera.localPosition, targetPos, t);
-        #endregion
+            #region update camera Z-pos
+
+            Vector3 targetPos = new Vector3(Camera.localPosition.x, Camera.localPosition.y, _targetCameraZDistance);
+            float distance = Vector3.Distance(Camera.localPosition, targetPos);
+            float timeToReach = distance / CameraZAdjustSpeed;
+            float t = Time.deltaTime / timeToReach;
+            Camera.transform.localPosition = Vector3.Lerp(Camera.localPosition, targetPos, t);
+            #endregion
+        }
     }
-
-
 }

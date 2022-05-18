@@ -17,6 +17,7 @@ public class PlayerPlaneInput : PlaneInput
         PitchInput = Input.GetAxis("Vertical");
         RollInput = -1 * Input.GetAxis("Horizontal");
         PrimaryFire = Input.GetAxis("Fire1") > 0;
+        SecondayFire = Input.GetAxis("Fire2") > 0;
         BoostBrake = Input.GetAxis("BoostBrake");
     }
 }

@@ -67,7 +67,7 @@ MonoBehaviour:
   PInput: {fileID: 0}
   CController: {fileID: 2130173716258279008}
   PStatus: {fileID: 2885518035194061981}
-  MaxForwardSpeed: 20
+  MaxForwardSpeed: 25
   BoostMultiplier: 1.2
   BrakeMultiplier: 0.667
   MaxPitchSpeed: 60
@@ -95,7 +95,12 @@ MonoBehaviour:
   MaxBoostGauge: 1
   BoostRecover: 0.2
   BoostDrain: 0.33
+  MaxHealth: 100
+  CurrentHealth: 100
+  DamageThresholdExplosionTemplate: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
+  DeathExplosion: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
   input: {fileID: 0}
+  IsPlayer: 1
   _currentBoostGauge: 0
 --- !u!1001 &2645274874554322650
 PrefabInstance:
@@ -770,6 +775,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab21e057f6e4f7448cca055bfd869cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &3279322074996732454
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4931338852113643168}
+    m_Modifications:
+    - target: {fileID: 8634069715431907086, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_Name
+      value: SecondaryFiringPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188282087245249896, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+--- !u!114 &6499182094000246842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8625455016610636316, guid: 521f82732147e4649843019a27b0d46d, type: 3}
+  m_PrefabInstance: {fileID: 3279322074996732454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab21e057f6e4f7448cca055bfd869cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3529141212678883915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1012,14 +1085,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c53c605ea0b55438bc91d1db3073b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletTemplate: {fileID: 8723710245464152715, guid: 83eb943fe5edc834e86ff35c0ed28a5f, type: 3}
-  ShotCooldown: 0.15
-  FiringPoints:
+  BulletTemplatePrimary: {fileID: 8723710245464152715, guid: 83eb943fe5edc834e86ff35c0ed28a5f, type: 3}
+  ShotCooldownPrimary: 0.15
+  FiringPointsPrimary:
   - {fileID: 6860021134738128620}
   - {fileID: 4521213406308186606}
   - {fileID: 4909031000547735862}
   - {fileID: 441041566297787593}
-  ConvergenceDistance: 100
+  BulletTemplateSecondary: {fileID: 522691417388804475, guid: 1203b57a626744b41991bd5cc5a0aa4b, type: 3}
+  ShotCooldownSecondary: 2
+  FiringPointsSecondary:
+  - {fileID: 6499182094000246842}
+  SecondaryAmmoCost: 0.04
+  MaxConvergenceDistance: 200
+  MinConvergenceDistance: 5
+  ConvergenceMask:
+    serializedVersion: 2
+    m_Bits: 152
   PlaneInput: {fileID: 0}
 --- !u!1001 &5263958098263645170
 PrefabInstance:
