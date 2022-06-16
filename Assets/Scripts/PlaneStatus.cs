@@ -43,6 +43,8 @@ public class PlaneStatus : MonoBehaviour
 
     public bool IsPlayer = false;
 
+    public DropOnDeath DeathDrops;
+
 
     [SerializeField]
     private float _currentBoostGauge;
@@ -93,6 +95,10 @@ public class PlaneStatus : MonoBehaviour
             if (DeathExplosion != null)
             {
                 Instantiate(DeathExplosion, transform.position, transform.rotation);
+            }
+            if (DeathDrops != null)
+            {
+                DeathDrops.Drop();
             }
 
             GameObject.Destroy(gameObject);

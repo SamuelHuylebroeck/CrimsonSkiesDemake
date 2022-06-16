@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class CameraControl : MonoBehaviour
@@ -21,6 +22,12 @@ public class CameraControl : MonoBehaviour
 
     private float _cameraAdditonalRotation;
 
+    private PlaneStatus _focusTarget;
+    public float FocusRange = 400;
+    public LayerMask FocusMask;
+
+    public Image CrossHairs;
+
     public float CameraZ {
         get
         {
@@ -33,6 +40,8 @@ public class CameraControl : MonoBehaviour
             _targetCameraZDistance = value;
         }
     }
+
+
 
     void Start()
     {
@@ -68,7 +77,7 @@ public class CameraControl : MonoBehaviour
 
 
         _cameraAdditonalRotation = 0;
-        if (Input.GetButton("CameraLookBack"))
+        if (Input.GetAxis("CameraLookBack") < 0)
         {
             _cameraAdditonalRotation = 180;
         }else{ 
@@ -78,6 +87,13 @@ public class CameraControl : MonoBehaviour
                 _cameraAdditonalRotation = additionalRotInput > 0.0 ? 90 : -90;
             }
         }
+
+        if (Input.GetButtonDown("CameraTrack"))
+        {
+            PulseForTarget();
+        }
+
+
     }
 
     public bool GradualSyncRotation(Quaternion target, float rotationSpeed) 
@@ -101,9 +117,27 @@ public class CameraControl : MonoBehaviour
             transform.position = plane.transform.position;
             #endregion
 
+
+            CrossHairs.enabled = true;
+
+            if (_cameraAdditonalRotation != 0.0 || Input.GetButton("CameraTrack"))
+            {
+                CrossHairs.enabled = false;
+            }
             #region sync rotation
             Quaternion targetRotation = plane.transform.rotation;
-            targetRotation *= Quaternion.AngleAxis(_cameraAdditonalRotation, Vector3.up);
+
+            if (Input.GetButton("CameraTrack") && _focusTarget != null)
+            {
+                var oldRotation = transform.rotation;
+                transform.LookAt(_focusTarget.transform);
+                targetRotation = transform.rotation;
+                transform.rotation = oldRotation;
+            }
+            else {
+                targetRotation *= Quaternion.AngleAxis(_cameraAdditonalRotation, Vector3.up);
+            }
+
 
             GradualSyncRotation(targetRotation, SpeedRotation);
             #endregion
@@ -117,5 +151,27 @@ public class CameraControl : MonoBehaviour
             Camera.transform.localPosition = Vector3.Lerp(Camera.localPosition, targetPos, t);
             #endregion
         }
+    }
+
+    private void PulseForTarget() 
+    {
+        Collider[] targetsInRange = Physics.OverlapSphere(plane.transform.position, FocusRange, FocusMask);
+        float targetRange = FocusRange + 1;
+        PlaneStatus closest = null;
+        foreach (Collider col in targetsInRange)
+        {
+            PlaneStatus ps = col.gameObject.GetComponent<PlaneStatus>();
+            if (ps != null && !ps.IsPlayer)
+            {
+                float distance = Vector3.Distance(plane.transform.position, ps.transform.position);
+                if (distance < targetRange) {
+                    targetRange = distance;
+                    closest = ps;
+                }
+            }
+        
+        }
+        print(closest);
+        _focusTarget = closest;
     }
 }

@@ -56,13 +56,15 @@ public class PlayerMissilePlaneInput : NPCPlaneInput
                 if (!candidateStatus.IsPlayer)
                 {
                     //Check angle
-                    Vector3 TargetLocal = transform.InverseTransformDirection(candidate.transform.position);
-                    float angle = Vector3.SignedAngle(Vector3.forward, TargetLocal, Vector3.right);
-                    if(Mathf.Abs(angle) < 160) //We want a bit more than a hemisphere for responsive missiles
-                    {
-                        target = candidate.gameObject;
-                        return;
-                    }
+                    //Vector3 TargetLocal = transform.InverseTransformDirection(candidate.transform.position);
+                    //float angle = Vector3.SignedAngle(Vector3.forward, TargetLocal, Vector3.right);
+                    //if(Mathf.Abs(angle) < 160) //We want a bit more than a hemisphere for responsive missiles
+                    //{
+                    //    target = candidate.gameObject;
+                    //    return;
+                    //}
+                    target = candidate.gameObject;
+                    return;
 
                 }
             }

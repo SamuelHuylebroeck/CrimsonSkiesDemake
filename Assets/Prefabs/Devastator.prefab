@@ -95,12 +95,13 @@ MonoBehaviour:
   MaxBoostGauge: 1
   BoostRecover: 0.2
   BoostDrain: 0.33
-  MaxHealth: 100
-  CurrentHealth: 100
+  MaxHealth: 200
+  CurrentHealth: 200
   DamageThresholdExplosionTemplate: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
   DeathExplosion: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
   input: {fileID: 0}
   IsPlayer: 1
+  DeathDrops: {fileID: 0}
   _currentBoostGauge: 0
 --- !u!1001 &2645274874554322650
 PrefabInstance:
@@ -850,6 +851,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4931338852113643168}
     m_Modifications:
+    - target: {fileID: 1611244349197818782, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3711778451877917247, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
       propertyPath: PlaneControl
       value: 
@@ -897,6 +902,18 @@ PrefabInstance:
     - target: {fileID: 4188692809807413903, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596176474045778235, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.3773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596176474045778235, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.3773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596176474045778235, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.3773585
       objectReference: {fileID: 0}
     - target: {fileID: 7001031271371033525, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
       propertyPath: m_Name
@@ -1086,18 +1103,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletTemplatePrimary: {fileID: 8723710245464152715, guid: 83eb943fe5edc834e86ff35c0ed28a5f, type: 3}
-  ShotCooldownPrimary: 0.15
+  ShotCooldownPrimary: 0.2
   FiringPointsPrimary:
   - {fileID: 6860021134738128620}
   - {fileID: 4521213406308186606}
-  - {fileID: 4909031000547735862}
   - {fileID: 441041566297787593}
+  - {fileID: 4909031000547735862}
   BulletTemplateSecondary: {fileID: 522691417388804475, guid: 1203b57a626744b41991bd5cc5a0aa4b, type: 3}
   ShotCooldownSecondary: 2
   FiringPointsSecondary:
   - {fileID: 6499182094000246842}
   SecondaryAmmoCost: 0.04
-  MaxConvergenceDistance: 200
+  MaxConvergenceDistance: 100
   MinConvergenceDistance: 5
   ConvergenceMask:
     serializedVersion: 2
@@ -1178,6 +1195,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4931338852113643168}
     m_Modifications:
+    - target: {fileID: 1611244349197818782, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3711778451877917247, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
       propertyPath: PlaneControl
       value: 
@@ -1225,6 +1246,18 @@ PrefabInstance:
     - target: {fileID: 4188692809807413903, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596176474045778235, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.3584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596176474045778235, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.3584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 5596176474045778235, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.3584906
       objectReference: {fileID: 0}
     - target: {fileID: 7001031271371033525, guid: f50569d1c448fa64080fc462f0cceeaf, type: 3}
       propertyPath: m_Name

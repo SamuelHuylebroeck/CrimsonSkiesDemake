@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 7163880319445162589}
   - component: {fileID: 4249630008484641998}
   - component: {fileID: 2844920341194622397}
+  - component: {fileID: 6112462724122289996}
   m_Layer: 7
   m_Name: NPC_TestPlane
   m_TagString: Enemy
@@ -297,7 +298,7 @@ MonoBehaviour:
   PInput: {fileID: 7163880319445162589}
   CController: {fileID: 981671936658384757}
   PStatus: {fileID: 3214510288928062007}
-  MaxForwardSpeed: 25
+  MaxForwardSpeed: 20
   BoostMultiplier: 1.2
   BrakeMultiplier: 0.667
   MaxPitchSpeed: 60
@@ -331,6 +332,7 @@ MonoBehaviour:
   DeathExplosion: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
   input: {fileID: 7163880319445162589}
   IsPlayer: 0
+  DeathDrops: {fileID: 6112462724122289996}
   _currentBoostGauge: 0
 --- !u!114 &4525470774384167856
 MonoBehaviour:
@@ -351,7 +353,7 @@ MonoBehaviour:
   MaxPrimaryRange: 200
   MinFiringRange: 10
   FireAngle: 10
-  BulletSpeed: 50
+  BulletSpeed: 80
   CanBoostBrake: 0
   BoostDistance: 0
   BrakeDistance: 0
@@ -360,7 +362,7 @@ MonoBehaviour:
   MaxEndurance: 20
   _currentEndurance: 0
   _onEnduranceCooldown: 0
-  DogfightEnduranceDistance: 50
+  DogfightEnduranceDistance: 75
 --- !u!114 &9169947633255038953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +441,21 @@ MonoBehaviour:
   PatrolPoints: []
   GoalDistance: 10
   AggroRange: 200
+--- !u!114 &6112462724122289996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247240534043927181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e7082658c2fee848b1af33651790c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DropTable:
+  - {fileID: 7202315027485298723, guid: fcc392b340362fd489cb5df8578ac69f, type: 3}
+  - {fileID: 1911481883118877589, guid: 32a92a9a848ed6d4b8545baca5f1acbb, type: 3}
 --- !u!1 &6821023096790974357
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4669300434297671859
 Transform:
   m_ObjectHideFlags: 0
@@ -544,13 +561,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7428101969961843850}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -3}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -10, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.1350822}
   m_Children: []
   m_Father: {fileID: 5567444348730492584}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!20 &5721108464266920092
 Camera:
   m_ObjectHideFlags: 0

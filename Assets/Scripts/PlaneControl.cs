@@ -113,7 +113,7 @@ public class PlaneControl : MonoBehaviour
                     targetSpeed *= BoostMultiplier;
                 }
                 else {
-                    print("Boost empty");
+                   //print("Boost empty");
                 }
             }
             else

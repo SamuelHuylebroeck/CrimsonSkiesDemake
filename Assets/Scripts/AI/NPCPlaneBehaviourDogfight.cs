@@ -101,7 +101,6 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
 
         Vector3 targetPosLocal = transform.InverseTransformPoint(interceptPos);
 
-        bool yawing = false, rolling = false;
 
         #region pitch
         Vector3 pitchError = new Vector3(0, targetPosLocal.y, targetPosLocal.z).normalized;
@@ -117,7 +116,6 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
         if (Vector3.Angle(Vector3.forward, targetPosLocal.normalized) < FineSteeringAngle)
         {
             steering.y = targetPosLocal.x;
-            yawing = true;
             //When yawing, roll to be level
             if(pitch < 5f)
             {
@@ -132,7 +130,6 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
         {
             float roll = Vector3.SignedAngle(Vector3.up, rollError, Vector3.forward);
             steering.z = -roll * RollFactor;
-            rolling = true;
         }
 
         #endregion
@@ -151,7 +148,7 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
         #region Endurance Update
         if(Vector3.Distance(transform.position, context.TargetPosition) < DogfightEnduranceDistance)
         {
-            _currentEndurance -= Time.deltaTime * 2;
+            _currentEndurance -= Time.deltaTime * 3;
         }
 
         #endregion
@@ -173,7 +170,7 @@ public class NPCPlaneBehaviourDogfight : AbstractNPCPlaneBehaviour
         {
             _onEnduranceCooldown = true;
         }
-        _currentEndurance = Mathf.Min(_currentEndurance + Time.deltaTime, MaxEndurance);
+        _currentEndurance = Mathf.Min(_currentEndurance + 2*Time.deltaTime, MaxEndurance);
 
         if (_onEnduranceCooldown && _currentEndurance >= MaxEndurance)
         {

@@ -841,7 +841,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.25
       mode: 0
       spread: 0
       speed:
@@ -4961,8 +4961,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6149a6c361fd2054aaf1717e907e44b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionRadius: 7
-  ExplosionDamage: 25
+  ExplosionRadius: 5
+  ExplosionDamage: 40
   ExplosionTemplate: {fileID: 4871681610972975350, guid: 1eb02cd5c42eb4f47a09a81aa076bcb1, type: 3}
   Missile: {fileID: 522691417388804475}
   explosionMask:
@@ -5020,7 +5020,6 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 9008710476299727129}
-  - {fileID: 395524716282517843}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5057,15 +5056,15 @@ MonoBehaviour:
   PInput: {fileID: 5197103421149372514}
   CController: {fileID: 1387221476145176453}
   PStatus: {fileID: 1123150527282307658}
-  MaxForwardSpeed: 90
+  MaxForwardSpeed: 60
   BoostMultiplier: 1.2
-  BrakeMultiplier: 0.4
-  MaxPitchSpeed: 180
-  MaxYawSpeed: 90
-  MaxRollSpeed: 180
-  PitchAcceleration: 120
-  YawAcceleration: 60
-  RollAcelleration: 120
+  BrakeMultiplier: 0.5
+  MaxPitchSpeed: 270
+  MaxYawSpeed: 180
+  MaxRollSpeed: 270
+  PitchAcceleration: 270
+  YawAcceleration: 180
+  RollAcelleration: 270
   maxYawRoll: 90
   PlaneModel: {fileID: 9008710476299727129}
   ForwardAcceleration: 10
@@ -5091,6 +5090,7 @@ MonoBehaviour:
   DeathExplosion: {fileID: 0}
   input: {fileID: 5197103421149372514}
   IsPlayer: 0
+  DeathDrops: {fileID: 0}
   _currentBoostGauge: 0
 --- !u!114 &821466995427228869
 MonoBehaviour:
@@ -5116,6 +5116,11 @@ MonoBehaviour:
   BoostDistance: 100
   BrakeDistance: 30
   Intercept: 0
+  UseEndurance: 1
+  MaxEndurance: 10
+  _currentEndurance: 0
+  _onEnduranceCooldown: 0
+  DogfightEnduranceDistance: 0
 --- !u!114 &5197103421149372514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5139,8 +5144,8 @@ MonoBehaviour:
   BehaviourStack:
   - {fileID: 821466995427228869}
   - {fileID: 7089468607324356306}
-  SensorInterval: 0.1
-  SensorRange: 30
+  SensorInterval: 0.05
+  SensorRange: 50
   SensorMask:
     serializedVersion: 2
     m_Bits: 128
@@ -5156,80 +5161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b285171f75fbc49a781974dabdac92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4281547298294662931
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 395524716282517843}
-  - component: {fileID: 2775390343024900755}
-  m_Layer: 6
-  m_Name: Camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &395524716282517843
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281547298294662931}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.0285645, z: -11.836941}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5903445233534336079}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &2775390343024900755
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281547298294662931}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0.1
-    height: 0.1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!1 &6245567127523141030
 GameObject:
   m_ObjectHideFlags: 0

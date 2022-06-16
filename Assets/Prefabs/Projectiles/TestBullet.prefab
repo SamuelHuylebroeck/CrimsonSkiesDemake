@@ -96,10 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bb5e415a63948428be25cc284bb39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectileMaxVelocity: 50
+  ProjectileMaxVelocity: 80
   ProjectileLifeTime: 5
   BulletImpactTemplate: {fileID: 1804796887294601216, guid: 15ead8873cf3b6c43b4ffe4c88083a6c, type: 3}
-  ProjectileDamage: 3
+  ProjectileDamage: 5
 --- !u!54 &6537422950078796965
 Rigidbody:
   m_ObjectHideFlags: 0

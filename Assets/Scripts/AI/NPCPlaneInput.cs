@@ -57,7 +57,6 @@ public class NPCPlaneInput : PlaneInput
 
         }
         #endregion
-        print(_selectedBehaviourIndex);
         return _selectedBehaviourIndex;
     }
 

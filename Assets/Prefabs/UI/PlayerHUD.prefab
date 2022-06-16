@@ -438,6 +438,7 @@ GameObject:
   - component: {fileID: 4931337189483809472}
   - component: {fileID: 4931337189483809487}
   - component: {fileID: 6908447901898755765}
+  - component: {fileID: 1098261474979803458}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -546,6 +547,27 @@ MonoBehaviour:
   HealthBar: {fileID: 685790964808374884}
   FuelBar: {fileID: 200233952043888905}
   AmmoText: {fileID: 3572494208459376109}
+--- !u!114 &1098261474979803458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931337189483809486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff687e424db6c44bbab70122dc585b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerHUD: {fileID: 4931337189483809473}
+  plane: {fileID: 0}
+  HUDMarkerTemplate: {fileID: 8844950833746698640, guid: 70ef6147af468054585aee54110e023d, type: 3}
+  _markerList: []
+  ScanInterval: 1
+  ScanRange: 800
+  ScanMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &5003433161659877035
 GameObject:
   m_ObjectHideFlags: 0
